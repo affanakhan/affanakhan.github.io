@@ -1,0 +1,223 @@
+---
+title: "Project2.Rmd"
+author: "Affan Khan aak2856"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, fig.align = "center", warning = F, message = F,
+tidy=TRUE, tidy.opts=list(width.cutoff=60), R.options=list(max.print=100))
+
+# Setting libraries and installing new packages
+library(tidyverse)
+library(cluster)
+```
+
+## 0. Introduction
+
+```{r intro}
+#read all datasets
+fert_data <- read.csv("~/Desktop/SDS Project/fert.csv")
+head(fert_data)
+life_expec_data <- read.csv("~/Desktop/SDS Project/life_expec.csv")
+head(life_expec_data)
+life_expec_data <- read.csv("~/Desktop/SDS Project/life_expec.csv")
+head(life_expec_data)
+happy_data <- read.csv("~/Desktop/SDS Project/happy.csv")
+head(happy_data)
+migration_data <- read.csv("~/Desktop/SDS Project/migration.csv")
+head(migration_data)
+unemployment_data <- read.csv("~/Desktop/SDS Project/unemployment.csv")
+head(unemployment_data)
+#join data
+library(dplyr)
+my_data1 <- inner_join(fert_data,life_expec_data,by="name")
+my_data2 <- inner_join(happy_data,migration_data,by="name")
+my_data3 <- inner_join(my_data1,my_data2,by="name")
+my_data <- inner_join(my_data3,unemployment_data,by="name")
+#find num obersvations
+nrow(my_data)
+library(tidyverse)
+library(lmtest)
+my_data <- my_data %>% 
+mutate(general_employment = if_else(unemployment_index > 16, 'unemployed', 'employed'))
+head(my_data)
+```
+
+To begin with, I have chosen 5 datasets with 5 associated varibales in each that I am testing for, linked to country data: Net Migration Rate per Country (https://www.cia.gov/the-world-factbook/field/net-migration-rate/country-comparison), Life Expectancy at Birth per Country (https://www.cia.gov/the-world-factbook/field/life-expectancy-at-birth/country-comparison), Unemployment Youth Ages per Country 15-24 (https://www.cia.gov/the-world-factbook/field/unemployment-youth-ages-15-24/country-comparison), Total Fetility Rate per Country (https://www.cia.gov/the-world-factbook/field/total-fertility-rate/country-comparison), and World Happiness Report (https://www.kaggle.com/unsdsn/world-happiness). In each datset, I am taking one variable from each dataset including migration_index (numerical), life_expec (numerical), happiness_index (categorical), unemployment_index (numerical), and fert_r (numerical). There are 135 observations or 135 countries. 
+
+## 1. MANOVA Testing
+
+```{r manova}
+#run manova
+man1<-manova(cbind(life_expec,migration_index,unemployment_index, fert_r)~happiness_index, data=my_data)
+summary(man1)
+#run anova
+summary.aov(man1) 
+#run pairwise t tests
+pairwise.t.test(my_data$life_expec,my_data$happiness_index, p.adj="none")
+pairwise.t.test(my_data$migration_index,my_data$happiness_index, p.adj="none")
+pairwise.t.test(my_data$unemployment_index,my_data$happiness_index, p.adj="none")
+pairwise.t.test(my_data$fert_r,my_data$happiness_index, p.adj="none")
+#calculate adjustment
+0.05/6
+```
+
+A one-way MANOVA was conducted to determine the effect of the Happiness Index of a Country (Generally Happy, Generally Unhappy , Very Happy, Very Unhappy, and Average) on four dependent variables (migration rate, life expectancy at birth, unemployment rate, and fertility rate). Alhtough we din't create bivariate density plots or covariance matrices, we found no univariate or multivariate outliers were evident and MANOVA was considered to be an appropriate analysis technique. This is also true as these were Random samples and independent observations. In addition, we assume linear relationships between the DV of each group. Significant differences were found among the 4 independent variables for the Happiness Index. Univariate ANOVAs for each dependent variable were conducted as follow-up tests to the MANOVA, using the Bonferroni method for controlling Type I error rates for multiple comparisons. The univariate ANOVAs for migration rate, life expectancy at birth, and fertility rate were also significant. Post hoc analysis was performed conducting pairwise comparisons to determine the effect of the Happiness Index of a Country (Generally Happy ,Generally Unhappy , Very Happy, Very Unhappy, and Average) on four dependent variables. All five Happiness Indexes were found to differ significantly from each other in terms of migration rate, life expectancy at birth, and fertility rate after adjusting formultiple comparisons (bonferroni).
+
+## 2. Randomization Test: Kendall-Correlation
+
+```{r kendall-correlation}
+#Plot
+library("ggplot2")
+library("ggpubr")
+ggscatter(my_data, x = "unemployment_index", y = "migration_index", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "Unemployment Rate Youth ages 15-24", ylab = "Net Migration Rate")
+#Assumptions
+# Shapiro-Wilk normality test for unemployment_index
+shapiro.test(my_data$unemployment_index) 
+# Shapiro-Wilk normality test for migration_index
+shapiro.test(my_data$migration_index) 
+# unemployment_index
+ggqqplot(my_data$unemployment_index, ylab = "Unemployment Rate Youth ages 15-24")
+# migration_index
+ggqqplot(my_data$migration_index, ylab = "Net Migration Rate")
+#Kendall Correlation
+res2 <- cor.test(my_data$unemployment_index, my_data$migration_index, 
+                    method = "kendall")
+res2
+res2$p.value
+```
+
+
+I performed a Kendall-Correlation Test on the unemployment_index and the migration_index of my dataset. 
+
+Null hypothesis is p = 0
+Alternative hypothesis is p ≠ 0
+
+Where p is the correlation. 
+
+Assumptions: 
+
+-Covariation linear: In accordance to the plot generated above between the unemployment_index and the migration_index of my dataset, we have a linear relationship between the two as illustarted as a straight line.
+
+-Normality: Using the Shapiro-Wilk normality test we checked if the unemployment_index and the migration_index were normal, which they weren't thus we decided to use the Kendall Correlation Test.
+
+Results:
+
+In accordance to the results, the correlation coefficient between x and y are 0.5103424 and the p-value is -0.03839967. This indicates that there exists a weak negative correlation meaning that every time unemployment_index increases, migration_index decreases. We reject our null hypothesis that p = 0  as thecorrelation is -0.03839967. This negated my theory that that countries with high rates of unemployment have high riates of migration which indicates that our dataset requires further investigation and analysis. 
+
+## 3. Linear Regression 
+
+```{r linear regression}
+#linear regression reg
+fit_reg <- lm(migration_index ~ happiness_index + unemployment_index, data=my_data)
+#interaction 
+fit_reg2 <- lm(migration_index ~ happiness_index*unemployment_index, data=my_data)
+summary(fit_reg2)
+#plot
+ggplot(my_data, aes(x=unemployment_index, y=migration_index,group=happiness_index))+geom_point(aes(color=happiness_index))+  geom_smooth(method="lm",formula=y~1,se=F,fullrange=T,aes(color=happiness_index))+theme(legend.position=c(.9,.19))+xlab("")
+#assumptions
+resids<-fit_reg$residuals
+fitvals<-fit_reg$fitted.values
+ggplot()+geom_point(aes(fitvals,resids))+geom_hline(yintercept=0, color='red')
+ggplot()+geom_histogram(aes(resids), bins=20)
+ggplot()+geom_qq(aes(sample=resids))+geom_qq(aes(sample=fitvals))
+#summary 
+summary(fit_reg)
+#proportion
+(sum((my_data$migration_index-mean(my_data$migration_index))^2)-sum(fit_reg$residuals^2))/sum((my_data$migration_index-mean(my_data$migration_index))^2)
+#SE
+library(sandwich)
+library(lmtest)
+#uncorrected SE
+summary(fit_reg)$coef[,1:2]
+#corrected SE
+coeftest(fit_reg, vcov = vcovHC(fit_reg))[,1:2]
+#rerun
+summary(fit_reg)
+```
+
+Hypothesis
+
+H0 : The happiness_index does not explain variation in migration_index while controlling for the unemployment index (β1 = 0)
+HA : The happiness_index does explain variation in migration_index while controlling for the unemployment index (β1 ≠ 0)
+
+The coefficient estimates show us alot of infromation. In general, we can see that for happiness indexes inclduing Generally Happy, Very Happy, Very Unhappy, as the value of the these indexes increase the mean of the migration index also increases. On the other hand, as the value of the these indexes decrease the mean of the migration index also decreases. Even more interesting to note is that Very Happy countries have the strongest correlation. 0.1700039 is the proportion of the variation in the outcome is what our model can explain. We were also able to check assumptions of linearity, normality, and homoskedasticity either graphically or using a hypothesis test all of which passed. After regression results with robust standard errors, the coefficient estimates differ. In general, we can see that for all happiness indexes inclduing Generally Happy, Very Happy, Very Unhappy, and Generally Unappy, as the value of the these indexes increase the mean of the migration index also increases. Thus showing that in general, the migration index and the happiness index don't have a strong correlation as countries with different happiness levels will have similar migration rates.
+
+## 4. Re-Run Regression Bootsrapped 
+
+```{r bootstrapped}
+  fit2<-lm(migration_index ~ happiness_index * unemployment_index,data=my_data) 
+  resids<-fit2$residuals
+  fitted<-fit2$fitted.values 
+  resid_resamp<-replicate(5000,{    
+    new_resids<-sample(resids,replace=TRUE)
+    my_data$new_y<-fitted+new_resids
+    fit2<-lm(new_y~happiness_index * unemployment_index,data=my_data) 
+    coef(fit2) 
+  })
+  resid_resamp%>%t%>%as.data.frame%>%summarize_all(sd)
+  resid_resamp%>%t%>%as.data.frame%>%pivot_longer(1:3)%>%group_by(name)%>% summarize(lower=quantile(value,.025), upper=quantile(value,.975))
+## Normal-theory SEs
+coeftest(fit2)[,1:2]
+## Robust SEs
+coeftest(fit2, vcov=vcovHC(fit2))[,1:2]
+## Bootstrapped SEs (resampling residuals)
+resid_resamp%>%t%>%as.data.frame%>%summarize_all(sd)
+```
+
+After rerun same regression model (with the interaction), but this time we compute bootstrapped standard errors (either by resampling observations or residuals). When compairing the newly computed SEs compared to the original SEs and the robust SEs, I noticed the new SEs were much higher than the robust SEs and these SEs were higher than the original SEs. 
+
+## 5. Logistic Regression 
+
+```{r log regression}
+library(tidyverse)
+library(lmtest)
+data<-my_data%>%mutate(y=ifelse(general_employment=="employed",1,0))
+fit<-glm(y~migration_index, data=data, family="binomial")
+coeftest(fit)
+exp(coef(fit))
+#predicted logit (log-odds)
+predict(fit, newdata=data.frame(migration_index=10), type= "link") 
+#predicted probability
+predict(fit, newdata=data.frame(migration_index=10), type = "response") 
+logistic <- function(x){exp(x)/(1+exp(x))}
+ggplot()+geom_function(fun=logistic)+xlim(-6,6)+xlab("t")+ylab("p( y = 1 )")
+
+
+data$prob <- predict(fit,type="response")
+data$predicted <- ifelse(data$prob>.5,"employed","unemployed")
+
+ggplot(data, aes(migration_index,y))+geom_jitter(aes(color=predicted),width=.3,height=0)+
+  stat_smooth(method="glm",method.args=list(family="binomial"),se=F)+ylab("malignancy (0,1)")
+
+data$logit<-predict(fit) 
+
+data$general_employment<-factor(data$general_employment,levels=c("employed","unemployed")) 
+
+ggplot(data,aes(logit, fill=general_employment))+geom_density(alpha=.3)+
+  geom_vline(xintercept=0,lty=2)
+table(truth=data$general_employment, prediction=data$predicted)%>%addmargins
+
+
+(74+2)/135 # accuracy
+2/61 # tnr (specificity)
+74/74 # tpr (sensitivity aka recall)
+74/133 # ppv (precision)
+
+#install.packages('plotROC')
+library(plotROC) 
+
+#geom_roc needs actual outcome (0,1) and predicted probability (or predictor if just one) 
+ROCplot<-ggplot(data)+geom_roc(aes(d=general_employment,m=prob), n.cuts=0) 
+
+ROCplot
+calc_auc(ROCplot)
+```
+
+Through the logistic regression coefficients we are given a change of -0.012326 in the log odds of the employment of countries for a one unit increase in the migration_index variable. I computed the accuracy to be 0.562963 meaning the proportion of correctly classified cases. I computed the tnr (specificity) to be 0.03278689 meaning the proportion of employed countries correctly classified. I computed the tpr (sensitivity) to be 1, meaning proportion of unemployed countries correctly classified. I computed the ppv (precision) to be 0.556391, meaning proportion classified employed who actually are. The AUC  is 0.5310146, meaning that 0.53 is the  probability that a randomly selected country that is generally employed has a higher predicted probability than a randomly selected countru that is generally unemployed.
+

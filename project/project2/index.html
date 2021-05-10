@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Affan Khan" />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+    <title>Project2.Rmd</title>
+    <meta name="generator" content="Hugo 0.83.1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old" />
+    
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    
+  </head>
+
+  <body>
+    <div id="wrap">
+      
+      <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/"><i class="fa fa-home"></i></a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+        <li><a href="/post/">BLOG</a></li>
+        
+        <li><a href="/projects/">PROJECTS</a></li>
+        
+        <li><a href="/resume/">RESUME</a></li>
+        
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      <div class="container">
+        <div class="blog-post">
+          <h3>
+            <strong><a href="/project/project2/">Project2.Rmd</a></strong>
+          </h3>
+        </div>
+ 
+<div class="blog-title">
+          <h4>
+         May 9, 2021 
+            &nbsp;&nbsp;
+            
+          </h4>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="blogpost">
+              
+
+
+<div id="introduction" class="section level2">
+<h2>0. Introduction</h2>
+<pre class="r"><code># read all datasets
+fert_data &lt;- read.csv(&quot;~/Desktop/SDS Project/fert.csv&quot;)
+head(fert_data)</code></pre>
+<pre><code>##                                name                             slug fert_r
+## 1                             Niger                            niger   6.91
+## 2                            Angola                           angola   5.90
+## 3 Congo, Democratic Republic of the congo-democratic-republic-of-the   5.70
+## 4                              Mali                             mali   5.63
+## 5                              Chad                             chad   5.57
+## 6                             Benin                            benin   5.47
+##   date_of_information ranking region
+## 1           2021 est.       1 Africa
+## 2           2021 est.       2 Africa
+## 3           2021 est.       3 Africa
+## 4           2021 est.       4 Africa
+## 5           2021 est.       5 Africa
+## 6           2021 est.       6 Africa</code></pre>
+<pre class="r"><code>life_expec_data &lt;- read.csv(&quot;~/Desktop/SDS Project/life_expec.csv&quot;)
+head(life_expec_data)</code></pre>
+<pre><code>##         name       slug life_expec date_of_information ranking
+## 1     Monaco     monaco      89.40                  NA       1
+## 2  Singapore  singapore      86.19                  NA       2
+## 3      Macau      macau      84.81                  NA       3
+## 4      Japan      japan      84.65                  NA       4
+## 5 San Marino san-marino      83.68                  NA       5
+## 6     Canada     canada      83.62                  NA       6
+##                     region
+## 1                   Europe
+## 2 East Asia/Southeast Asia
+## 3 East Asia/Southeast Asia
+## 4 East Asia/Southeast Asia
+## 5                   Europe
+## 6            North America</code></pre>
+<pre class="r"><code>life_expec_data &lt;- read.csv(&quot;~/Desktop/SDS Project/life_expec.csv&quot;)
+head(life_expec_data)</code></pre>
+<pre><code>##         name       slug life_expec date_of_information ranking
+## 1     Monaco     monaco      89.40                  NA       1
+## 2  Singapore  singapore      86.19                  NA       2
+## 3      Macau      macau      84.81                  NA       3
+## 4      Japan      japan      84.65                  NA       4
+## 5 San Marino san-marino      83.68                  NA       5
+## 6     Canada     canada      83.62                  NA       6
+##                     region
+## 1                   Europe
+## 2 East Asia/Southeast Asia
+## 3 East Asia/Southeast Asia
+## 4 East Asia/Southeast Asia
+## 5                   Europe
+## 6            North America</code></pre>
+<pre class="r"><code>happy_data &lt;- read.csv(&quot;~/Desktop/SDS Project/happy.csv&quot;)
+head(happy_data)</code></pre>
+<pre><code>##          name happiness_index
+## 1     Finland      Very Happy
+## 2     Denmark      Very Happy
+## 3      Norway      Very Happy
+## 4     Iceland      Very Happy
+## 5 Netherlands      Very Happy
+## 6 Switzerland      Very Happy</code></pre>
+<pre class="r"><code>migration_data &lt;- read.csv(&quot;~/Desktop/SDS Project/migration.csv&quot;)
+head(migration_data)</code></pre>
+<pre><code>##                     name                   slug migration_index
+## 1                  Syria                  syria           34.34
+## 2            South Sudan            south-sudan           22.04
+## 3              Venezuela              venezuela           14.22
+## 4 British Virgin Islands british-virgin-islands           13.93
+## 5         Cayman Islands         cayman-islands           12.80
+## 6             Luxembourg             luxembourg           12.65
+##   date_of_information ranking          region
+## 1           2021 est.       1     Middle East
+## 2           2021 est.       2          Africa
+## 3           2021 est.       3   South America
+## 4           2021 est.       4 Central America
+## 5           2021 est.       5 Central America
+## 6           2021 est.       6          Europe</code></pre>
+<pre class="r"><code>unemployment_data &lt;- read.csv(&quot;~/Desktop/SDS Project/unemployment.csv&quot;)
+head(unemployment_data)</code></pre>
+<pre><code>##               name             slug unemployment_index date_of_information
+## 1         Djibouti         djibouti               73.0                    
+## 2     South Africa     south-africa               57.0                est.
+## 3 French Polynesia french-polynesia               56.7                est.
+## 4       Cabo Verde       cabo-verde               50.4                    
+## 5           Kosovo           kosovo               49.5                est.
+## 6            Libya            libya               48.7                est.
+##   ranking              region
+## 1       1              Africa
+## 2       2              Africa
+## 3       3 Australia - Oceania
+## 4       4              Africa
+## 5       5              Europe
+## 6       6              Africa</code></pre>
+<pre class="r"><code># join data
+library(dplyr)
+my_data1 &lt;- inner_join(fert_data, life_expec_data, by = &quot;name&quot;)
+my_data2 &lt;- inner_join(happy_data, migration_data, by = &quot;name&quot;)
+my_data3 &lt;- inner_join(my_data1, my_data2, by = &quot;name&quot;)
+my_data &lt;- inner_join(my_data3, unemployment_data, by = &quot;name&quot;)
+# find num obersvations
+nrow(my_data)</code></pre>
+<pre><code>## [1] 135</code></pre>
+<pre class="r"><code>library(tidyverse)
+library(lmtest)
+my_data &lt;- my_data %&gt;%
+    mutate(general_employment = if_else(unemployment_index &gt; 
+        16, &quot;unemployed&quot;, &quot;employed&quot;))
+head(my_data)</code></pre>
+<pre><code>##    name slug.x fert_r date_of_information.x ranking.x region.x slug.y
+## 1 Niger  niger   6.91             2021 est.         1   Africa  niger
+## 2  Mali   mali   5.63             2021 est.         4   Africa   mali
+## 3  Chad   chad   5.57             2021 est.         5   Africa   chad
+## 4 Benin  benin   5.47             2021 est.         6   Africa  benin
+##   life_expec date_of_information.y ranking.y region.y   happiness_index
+## 1      59.70                    NA       219   Africa Generally Unhappy
+## 2      62.01                    NA       211   Africa Generally Unhappy
+## 3      58.73                    NA       222   Africa Generally Unhappy
+## 4      61.82                    NA       212   Africa Generally Unhappy
+##   slug.x.x migration_index date_of_information.x.x ranking.x.x region.x.x
+## 1    niger           -0.66               2021 est.         129     Africa
+## 2     mali           -3.17               2021 est.         180     Africa
+## 3     chad           -0.13               2021 est.         103     Africa
+## 4    benin            0.25               2021 est.          74     Africa
+##   slug.y.y unemployment_index date_of_information.y.y ranking.y.y region.y.y
+## 1    niger               16.6                    est.          89     Africa
+## 2     mali                2.4                    est.         175     Africa
+## 3     chad                1.5                                 178     Africa
+## 4    benin                5.6                    est.         161     Africa
+##   general_employment
+## 1         unemployed
+## 2           employed
+## 3           employed
+## 4           employed
+##  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 2 rows ]</code></pre>
+<p>To begin with, I have chosen 5 datasets with 5 associated varibales in each that I am testing for, linked to country data: Net Migration Rate per Country (<a href="https://www.cia.gov/the-world-factbook/field/net-migration-rate/country-comparison" class="uri">https://www.cia.gov/the-world-factbook/field/net-migration-rate/country-comparison</a>), Life Expectancy at Birth per Country (<a href="https://www.cia.gov/the-world-factbook/field/life-expectancy-at-birth/country-comparison" class="uri">https://www.cia.gov/the-world-factbook/field/life-expectancy-at-birth/country-comparison</a>), Unemployment Youth Ages per Country 15-24 (<a href="https://www.cia.gov/the-world-factbook/field/unemployment-youth-ages-15-24/country-comparison" class="uri">https://www.cia.gov/the-world-factbook/field/unemployment-youth-ages-15-24/country-comparison</a>), Total Fetility Rate per Country (<a href="https://www.cia.gov/the-world-factbook/field/total-fertility-rate/country-comparison" class="uri">https://www.cia.gov/the-world-factbook/field/total-fertility-rate/country-comparison</a>), and World Happiness Report (<a href="https://www.kaggle.com/unsdsn/world-happiness" class="uri">https://www.kaggle.com/unsdsn/world-happiness</a>). In each datset, I am taking one variable from each dataset including migration_index (numerical), life_expec (numerical), happiness_index (categorical), unemployment_index (numerical), and fert_r (numerical). There are 135 observations or 135 countries.</p>
+</div>
+<div id="manova-testing" class="section level2">
+<h2>1. MANOVA Testing</h2>
+<pre class="r"><code># run manova
+man1 &lt;- manova(cbind(life_expec, migration_index, unemployment_index, 
+    fert_r) ~ happiness_index, data = my_data)
+summary(man1)</code></pre>
+<pre><code>##                  Df Pillai approx F num Df den Df    Pr(&gt;F)    
+## happiness_index   4 0.8899   9.2993     16    520 &lt; 2.2e-16 ***
+## Residuals       130                                            
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code># run anova
+summary.aov(man1)</code></pre>
+<pre><code>##  Response life_expec :
+##                  Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## happiness_index   4 3818.8  954.69  45.177 &lt; 2.2e-16 ***
+## Residuals       130 2747.2   21.13                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##  Response migration_index :
+##                  Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+## happiness_index   4  526.69 131.672  6.4508 9.108e-05 ***
+## Residuals       130 2653.52  20.412                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##  Response unemployment_index :
+##                  Df  Sum Sq Mean Sq F value Pr(&gt;F)
+## happiness_index   4   728.4  182.11  1.4673 0.2158
+## Residuals       130 16134.6  124.11               
+## 
+##  Response fert_r :
+##                  Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+## happiness_index   4  83.747 20.9368  24.989 2.321e-15 ***
+## Residuals       130 108.919  0.8378                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code># run pairwise t tests
+pairwise.t.test(my_data$life_expec, my_data$happiness_index, 
+    p.adj = &quot;none&quot;)</code></pre>
+<pre><code>## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  my_data$life_expec and my_data$happiness_index 
+## 
+##                   Average Generally Happy Generally Unhappy Very Happy
+## Generally Happy   0.00055 -               -                 -         
+## Generally Unhappy 9.0e-08 6.2e-15         -                 -         
+## Very Happy        2.7e-07 0.01348         &lt; 2e-16           -         
+## Very Unhappy      8.6e-10 1.6e-15         0.02252           &lt; 2e-16   
+## 
+## P value adjustment method: none</code></pre>
+<pre class="r"><code>pairwise.t.test(my_data$migration_index, my_data$happiness_index, 
+    p.adj = &quot;none&quot;)</code></pre>
+<pre><code>## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  my_data$migration_index and my_data$happiness_index 
+## 
+##                   Average Generally Happy Generally Unhappy Very Happy
+## Generally Happy   0.12670 -               -                 -         
+## Generally Unhappy 0.86865 0.18561         -                 -         
+## Very Happy        8.7e-05 0.00716         0.00019           -         
+## Very Unhappy      0.00152 0.04702         0.00273           0.59681   
+## 
+## P value adjustment method: none</code></pre>
+<pre class="r"><code>pairwise.t.test(my_data$unemployment_index, my_data$happiness_index, 
+    p.adj = &quot;none&quot;)</code></pre>
+<pre><code>## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  my_data$unemployment_index and my_data$happiness_index 
+## 
+##                   Average Generally Happy Generally Unhappy Very Happy
+## Generally Happy   0.752   -               -                 -         
+## Generally Unhappy 0.423   0.286           -                 -         
+## Very Happy        0.358   0.518           0.129             -         
+## Very Unhappy      0.106   0.071           0.317             0.035     
+## 
+## P value adjustment method: none</code></pre>
+<pre class="r"><code>pairwise.t.test(my_data$fert_r, my_data$happiness_index, p.adj = &quot;none&quot;)</code></pre>
+<pre><code>## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  my_data$fert_r and my_data$happiness_index 
+## 
+##                   Average Generally Happy Generally Unhappy Very Happy
+## Generally Happy   0.22    -               -                 -         
+## Generally Unhappy 3.7e-09 3.8e-11         -                 -         
+## Very Happy        0.38    0.91            5.8e-08           -         
+## Very Unhappy      9.7e-09 2.2e-10         0.18              2.5e-08   
+## 
+## P value adjustment method: none</code></pre>
+<pre class="r"><code># calculate adjustment
+0.05/6</code></pre>
+<pre><code>## [1] 0.008333333</code></pre>
+<p>A one-way MANOVA was conducted to determine the effect of the Happiness Index of a Country (Generally Happy, Generally Unhappy , Very Happy, Very Unhappy, and Average) on four dependent variables (migration rate, life expectancy at birth, unemployment rate, and fertility rate). Alhtough we din’t create bivariate density plots or covariance matrices, we found no univariate or multivariate outliers were evident and MANOVA was considered to be an appropriate analysis technique. This is also true as these were Random samples and independent observations. In addition, we assume linear relationships between the DV of each group. Significant differences were found among the 4 independent variables for the Happiness Index. Univariate ANOVAs for each dependent variable were conducted as follow-up tests to the MANOVA, using the Bonferroni method for controlling Type I error rates for multiple comparisons. The univariate ANOVAs for migration rate, life expectancy at birth, and fertility rate were also significant. Post hoc analysis was performed conducting pairwise comparisons to determine the effect of the Happiness Index of a Country (Generally Happy ,Generally Unhappy , Very Happy, Very Unhappy, and Average) on four dependent variables. All five Happiness Indexes were found to differ significantly from each other in terms of migration rate, life expectancy at birth, and fertility rate after adjusting formultiple comparisons (bonferroni).</p>
+</div>
+<div id="randomization-test-kendall-correlation" class="section level2">
+<h2>2. Randomization Test: Kendall-Correlation</h2>
+<pre class="r"><code># Plot
+library(&quot;ggplot2&quot;)
+library(&quot;ggpubr&quot;)
+ggscatter(my_data, x = &quot;unemployment_index&quot;, y = &quot;migration_index&quot;, 
+    add = &quot;reg.line&quot;, conf.int = TRUE, cor.coef = TRUE, cor.method = &quot;pearson&quot;, 
+    xlab = &quot;Unemployment Rate Youth ages 15-24&quot;, ylab = &quot;Net Migration Rate&quot;)</code></pre>
+<p><img src="/project/project2_files/figure-html/kendall-correlation-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Assumptions Shapiro-Wilk normality test for
+# unemployment_index
+shapiro.test(my_data$unemployment_index)</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  my_data$unemployment_index
+## W = 0.92971, p-value = 2.88e-06</code></pre>
+<pre class="r"><code># Shapiro-Wilk normality test for migration_index
+shapiro.test(my_data$migration_index)</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  my_data$migration_index
+## W = 0.71749, p-value = 8.519e-15</code></pre>
+<pre class="r"><code># unemployment_index
+ggqqplot(my_data$unemployment_index, ylab = &quot;Unemployment Rate Youth ages 15-24&quot;)</code></pre>
+<p><img src="/project/project2_files/figure-html/kendall-correlation-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># migration_index
+ggqqplot(my_data$migration_index, ylab = &quot;Net Migration Rate&quot;)</code></pre>
+<p><img src="/project/project2_files/figure-html/kendall-correlation-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Kendall Correlation
+res2 &lt;- cor.test(my_data$unemployment_index, my_data$migration_index, 
+    method = &quot;kendall&quot;)
+res2</code></pre>
+<pre><code>## 
+##  Kendall&#39;s rank correlation tau
+## 
+## data:  my_data$unemployment_index and my_data$migration_index
+## z = -0.6583, p-value = 0.5103
+## alternative hypothesis: true tau is not equal to 0
+## sample estimates:
+##         tau 
+## -0.03839967</code></pre>
+<pre class="r"><code>res2$p.value</code></pre>
+<pre><code>## [1] 0.5103424</code></pre>
+<p>I performed a Kendall-Correlation Test on the unemployment_index and the migration_index of my dataset.</p>
+<p>Null hypothesis is p = 0
+Alternative hypothesis is p ≠ 0</p>
+<p>Where p is the correlation.</p>
+<p>Assumptions:</p>
+<p>-Covariation linear: In accordance to the plot generated above between the unemployment_index and the migration_index of my dataset, we have a linear relationship between the two as illustarted as a straight line.</p>
+<p>-Normality: Using the Shapiro-Wilk normality test we checked if the unemployment_index and the migration_index were normal, which they weren’t thus we decided to use the Kendall Correlation Test.</p>
+<p>Results:</p>
+<p>In accordance to the results, the correlation coefficient between x and y are 0.5103424 and the p-value is -0.03839967. This indicates that there exists a weak negative correlation meaning that every time unemployment_index increases, migration_index decreases. We reject our null hypothesis that p = 0 as thecorrelation is -0.03839967. This negated my theory that that countries with high rates of unemployment have high riates of migration which indicates that our dataset requires further investigation and analysis.</p>
+</div>
+<div id="linear-regression" class="section level2">
+<h2>3. Linear Regression</h2>
+<pre class="r"><code># linear regression reg
+fit_reg &lt;- lm(migration_index ~ happiness_index + unemployment_index, 
+    data = my_data)
+# interaction
+fit_reg2 &lt;- lm(migration_index ~ happiness_index * unemployment_index, 
+    data = my_data)
+summary(fit_reg2)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = migration_index ~ happiness_index * unemployment_index, 
+##     data = my_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -11.3438  -1.6642  -0.0091   1.1226  27.2078 
+## 
+## Coefficients:
+##                                                      Estimate Std. Error
+## (Intercept)                                         -1.040186   1.353479
+## happiness_indexGenerally Happy                       1.350458   1.956600
+## happiness_indexGenerally Unhappy                     1.104485   1.908407
+## happiness_indexVery Happy                            4.949129   2.909556
+## happiness_indexVery Unhappy                         -1.503007   2.597341
+## unemployment_index                                  -0.005686   0.070246
+## happiness_indexGenerally Happy:unemployment_index    0.019321   0.103161
+## happiness_indexGenerally Unhappy:unemployment_index -0.049483   0.092388
+## happiness_indexVery Happy:unemployment_index         0.035110   0.187620
+## happiness_indexVery Unhappy:unemployment_index       0.275947   0.110240
+##                                                     t value Pr(&gt;|t|)  
+## (Intercept)                                          -0.769   0.4436  
+## happiness_indexGenerally Happy                        0.690   0.4913  
+## happiness_indexGenerally Unhappy                      0.579   0.5638  
+## happiness_indexVery Happy                             1.701   0.0914 .
+## happiness_indexVery Unhappy                          -0.579   0.5639  
+## unemployment_index                                   -0.081   0.9356  
+## happiness_indexGenerally Happy:unemployment_index     0.187   0.8517  
+## happiness_indexGenerally Unhappy:unemployment_index  -0.536   0.5932  
+## happiness_indexVery Happy:unemployment_index          0.187   0.8519  
+## happiness_indexVery Unhappy:unemployment_index        2.503   0.0136 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.417 on 125 degrees of freedom
+## Multiple R-squared:  0.2333, Adjusted R-squared:  0.1781 
+## F-statistic: 4.226 on 9 and 125 DF,  p-value: 8.555e-05</code></pre>
+<pre class="r"><code># plot
+ggplot(my_data, aes(x = unemployment_index, y = migration_index, 
+    group = happiness_index)) + geom_point(aes(color = happiness_index)) + 
+    geom_smooth(method = &quot;lm&quot;, formula = y ~ 1, se = F, fullrange = T, 
+        aes(color = happiness_index)) + theme(legend.position = c(0.9, 
+    0.19)) + xlab(&quot;&quot;)</code></pre>
+<p><img src="/project/project2_files/figure-html/linear%20regression-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># assumptions
+resids &lt;- fit_reg$residuals
+fitvals &lt;- fit_reg$fitted.values
+ggplot() + geom_point(aes(fitvals, resids)) + geom_hline(yintercept = 0, 
+    color = &quot;red&quot;)</code></pre>
+<p><img src="/project/project2_files/figure-html/linear%20regression-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot() + geom_histogram(aes(resids), bins = 20)</code></pre>
+<p><img src="/project/project2_files/figure-html/linear%20regression-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot() + geom_qq(aes(sample = resids)) + geom_qq(aes(sample = fitvals))</code></pre>
+<p><img src="/project/project2_files/figure-html/linear%20regression-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># summary
+summary(fit_reg)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = migration_index ~ happiness_index + unemployment_index, 
+##     data = my_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -10.7642  -1.7531  -0.0224   1.1197  30.5109 
+## 
+## Coefficients:
+##                                  Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                      -1.61682    0.93109  -1.736  0.08487 .  
+## happiness_indexGenerally Happy    1.68113    1.07934   1.558  0.12179    
+## happiness_indexGenerally Unhappy  0.11384    1.06399   0.107  0.91496    
+## happiness_indexVery Happy         5.52590    1.34735   4.101 7.23e-05 ***
+## happiness_indexVery Unhappy       4.39289    1.42366   3.086  0.00249 ** 
+## unemployment_index                0.02941    0.03561   0.826  0.41034    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.523 on 129 degrees of freedom
+## Multiple R-squared:   0.17,  Adjusted R-squared:  0.1378 
+## F-statistic: 5.284 on 5 and 129 DF,  p-value: 0.0001892</code></pre>
+<pre class="r"><code># proportion
+(sum((my_data$migration_index - mean(my_data$migration_index))^2) - 
+    sum(fit_reg$residuals^2))/sum((my_data$migration_index - 
+    mean(my_data$migration_index))^2)</code></pre>
+<pre><code>## [1] 0.1700039</code></pre>
+<pre class="r"><code># SE
+library(sandwich)
+library(lmtest)
+# uncorrected SE
+summary(fit_reg)$coef[, 1:2]</code></pre>
+<pre><code>##                                     Estimate Std. Error
+## (Intercept)                      -1.61681961 0.93108901
+## happiness_indexGenerally Happy    1.68113129 1.07934445
+## happiness_indexGenerally Unhappy  0.11384231 1.06398957
+## happiness_indexVery Happy         5.52589870 1.34734515
+## happiness_indexVery Unhappy       4.39289039 1.42365805
+## unemployment_index                0.02941465 0.03561169</code></pre>
+<pre class="r"><code># corrected SE
+coeftest(fit_reg, vcov = vcovHC(fit_reg))[, 1:2]</code></pre>
+<pre><code>##                                     Estimate Std. Error
+## (Intercept)                      -1.61681961 0.82492481
+## happiness_indexGenerally Happy    1.68113129 0.67335406
+## happiness_indexGenerally Unhappy  0.11384231 0.73860061
+## happiness_indexVery Happy         5.52589870 0.85991585
+## happiness_indexVery Unhappy       4.39289039 2.96463253
+## unemployment_index                0.02941465 0.04314464</code></pre>
+<pre class="r"><code># rerun
+summary(fit_reg)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = migration_index ~ happiness_index + unemployment_index, 
+##     data = my_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -10.7642  -1.7531  -0.0224   1.1197  30.5109 
+## 
+## Coefficients:
+##                                  Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                      -1.61682    0.93109  -1.736  0.08487 .  
+## happiness_indexGenerally Happy    1.68113    1.07934   1.558  0.12179    
+## happiness_indexGenerally Unhappy  0.11384    1.06399   0.107  0.91496    
+## happiness_indexVery Happy         5.52590    1.34735   4.101 7.23e-05 ***
+## happiness_indexVery Unhappy       4.39289    1.42366   3.086  0.00249 ** 
+## unemployment_index                0.02941    0.03561   0.826  0.41034    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.523 on 129 degrees of freedom
+## Multiple R-squared:   0.17,  Adjusted R-squared:  0.1378 
+## F-statistic: 5.284 on 5 and 129 DF,  p-value: 0.0001892</code></pre>
+<p>Hypothesis</p>
+<p>H0 : The happiness_index does not explain variation in migration_index while controlling for the unemployment index (β1 = 0)
+HA : The happiness_index does explain variation in migration_index while controlling for the unemployment index (β1 ≠ 0)</p>
+<p>The coefficient estimates show us alot of infromation. In general, we can see that for happiness indexes inclduing Generally Happy, Very Happy, Very Unhappy, as the value of the these indexes increase the mean of the migration index also increases. On the other hand, as the value of the these indexes decrease the mean of the migration index also decreases. Even more interesting to note is that Very Happy countries have the strongest correlation. 0.1700039 is the proportion of the variation in the outcome is what our model can explain. We were also able to check assumptions of linearity, normality, and homoskedasticity either graphically or using a hypothesis test all of which passed. After regression results with robust standard errors, the coefficient estimates differ. In general, we can see that for all happiness indexes inclduing Generally Happy, Very Happy, Very Unhappy, and Generally Unappy, as the value of the these indexes increase the mean of the migration index also increases. Thus showing that in general, the migration index and the happiness index don’t have a strong correlation as countries with different happiness levels will have similar migration rates.</p>
+</div>
+<div id="re-run-regression-bootsrapped" class="section level2">
+<h2>4. Re-Run Regression Bootsrapped</h2>
+<pre class="r"><code>fit2 &lt;- lm(migration_index ~ happiness_index * unemployment_index, 
+    data = my_data)
+resids &lt;- fit2$residuals
+fitted &lt;- fit2$fitted.values
+resid_resamp &lt;- replicate(5000, {
+    new_resids &lt;- sample(resids, replace = TRUE)
+    my_data$new_y &lt;- fitted + new_resids
+    fit2 &lt;- lm(new_y ~ happiness_index * unemployment_index, 
+        data = my_data)
+    coef(fit2)
+})
+resid_resamp %&gt;%
+    t %&gt;%
+    as.data.frame %&gt;%
+    summarize_all(sd)</code></pre>
+<pre><code>##   (Intercept) happiness_indexGenerally Happy happiness_indexGenerally Unhappy
+## 1    1.328979                       1.892968                         1.843955
+##   happiness_indexVery Happy happiness_indexVery Unhappy unemployment_index
+## 1                  2.811506                    2.452457         0.06954652
+##   happiness_indexGenerally Happy:unemployment_index
+## 1                                        0.09975579
+##   happiness_indexGenerally Unhappy:unemployment_index
+## 1                                          0.09049272
+##   happiness_indexVery Happy:unemployment_index
+## 1                                    0.1809043
+##   happiness_indexVery Unhappy:unemployment_index
+## 1                                      0.1055669</code></pre>
+<pre class="r"><code>resid_resamp %&gt;%
+    t %&gt;%
+    as.data.frame %&gt;%
+    pivot_longer(1:3) %&gt;%
+    group_by(name) %&gt;%
+    summarize(lower = quantile(value, 0.025), upper = quantile(value, 
+        0.975))</code></pre>
+<pre><code>## # A tibble: 3 x 3
+##   name                             lower upper
+##   &lt;chr&gt;                            &lt;dbl&gt; &lt;dbl&gt;
+## 1 (Intercept)                      -3.53  1.73
+## 2 happiness_indexGenerally Happy   -2.40  5.14
+## 3 happiness_indexGenerally Unhappy -2.55  4.71</code></pre>
+<pre class="r"><code>## Normal-theory SEs
+coeftest(fit2)[, 1:2]</code></pre>
+<pre><code>##                                                         Estimate Std. Error
+## (Intercept)                                         -1.040185663 1.35347943
+## happiness_indexGenerally Happy                       1.350458292 1.95659997
+## happiness_indexGenerally Unhappy                     1.104485116 1.90840684
+## happiness_indexVery Happy                            4.949128742 2.90955556
+## happiness_indexVery Unhappy                         -1.503007230 2.59734150
+## unemployment_index                                  -0.005685593 0.07024558
+## happiness_indexGenerally Happy:unemployment_index    0.019320869 0.10316063
+## happiness_indexGenerally Unhappy:unemployment_index -0.049482949 0.09238780
+## happiness_indexVery Happy:unemployment_index         0.035110409 0.18761987
+## happiness_indexVery Unhappy:unemployment_index       0.275946590 0.11023959</code></pre>
+<pre class="r"><code>## Robust SEs
+coeftest(fit2, vcov = vcovHC(fit2))[, 1:2]</code></pre>
+<pre><code>##                                                         Estimate Std. Error
+## (Intercept)                                         -1.040185663 0.65057820
+## happiness_indexGenerally Happy                       1.350458292 1.23393455
+## happiness_indexGenerally Unhappy                     1.104485116 1.23069239
+## happiness_indexVery Happy                            4.949128742 3.16728849
+## happiness_indexVery Unhappy                         -1.503007230 3.49769442
+## unemployment_index                                  -0.005685593 0.02648270
+## happiness_indexGenerally Happy:unemployment_index    0.019320869 0.06017403
+## happiness_indexGenerally Unhappy:unemployment_index -0.049482949 0.05940361
+## happiness_indexVery Happy:unemployment_index         0.035110409 0.27626529
+## happiness_indexVery Unhappy:unemployment_index       0.275946590 0.23391447</code></pre>
+<pre class="r"><code>## Bootstrapped SEs (resampling residuals)
+resid_resamp %&gt;%
+    t %&gt;%
+    as.data.frame %&gt;%
+    summarize_all(sd)</code></pre>
+<pre><code>##   (Intercept) happiness_indexGenerally Happy happiness_indexGenerally Unhappy
+## 1    1.328979                       1.892968                         1.843955
+##   happiness_indexVery Happy happiness_indexVery Unhappy unemployment_index
+## 1                  2.811506                    2.452457         0.06954652
+##   happiness_indexGenerally Happy:unemployment_index
+## 1                                        0.09975579
+##   happiness_indexGenerally Unhappy:unemployment_index
+## 1                                          0.09049272
+##   happiness_indexVery Happy:unemployment_index
+## 1                                    0.1809043
+##   happiness_indexVery Unhappy:unemployment_index
+## 1                                      0.1055669</code></pre>
+<p>After rerun same regression model (with the interaction), but this time we compute bootstrapped standard errors (either by resampling observations or residuals). When compairing the newly computed SEs compared to the original SEs and the robust SEs, I noticed the new SEs were much higher than the robust SEs and these SEs were higher than the original SEs.</p>
+</div>
+<div id="logistic-regression" class="section level2">
+<h2>5. Logistic Regression</h2>
+<pre class="r"><code>library(tidyverse)
+library(lmtest)
+data &lt;- my_data %&gt;%
+    mutate(y = ifelse(general_employment == &quot;employed&quot;, 1, 0))
+fit &lt;- glm(y ~ migration_index, data = data, family = &quot;binomial&quot;)
+coeftest(fit)</code></pre>
+<pre><code>## 
+## z test of coefficients:
+## 
+##                  Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept)      0.198487   0.173703  1.1427   0.2532
+## migration_index -0.012326   0.035643 -0.3458   0.7295</code></pre>
+<pre class="r"><code>exp(coef(fit))</code></pre>
+<pre><code>##     (Intercept) migration_index 
+##       1.2195557       0.9877498</code></pre>
+<pre class="r"><code># predicted logit (log-odds)
+predict(fit, newdata = data.frame(migration_index = 10), type = &quot;link&quot;)</code></pre>
+<pre><code>##          1 
+## 0.07522767</code></pre>
+<pre class="r"><code># predicted probability
+predict(fit, newdata = data.frame(migration_index = 10), type = &quot;response&quot;)</code></pre>
+<pre><code>##         1 
+## 0.5187981</code></pre>
+<pre class="r"><code>logistic &lt;- function(x) {
+    exp(x)/(1 + exp(x))
+}
+ggplot() + geom_function(fun = logistic) + xlim(-6, 6) + xlab(&quot;t&quot;) + 
+    ylab(&quot;p( y = 1 )&quot;)</code></pre>
+<p><img src="/project/project2_files/figure-html/log%20regression-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>data$prob &lt;- predict(fit, type = &quot;response&quot;)
+data$predicted &lt;- ifelse(data$prob &gt; 0.5, &quot;employed&quot;, &quot;unemployed&quot;)
+
+ggplot(data, aes(migration_index, y)) + geom_jitter(aes(color = predicted), 
+    width = 0.3, height = 0) + stat_smooth(method = &quot;glm&quot;, method.args = list(family = &quot;binomial&quot;), 
+    se = F) + ylab(&quot;malignancy (0,1)&quot;)</code></pre>
+<p><img src="/project/project2_files/figure-html/log%20regression-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>data$logit &lt;- predict(fit)
+
+data$general_employment &lt;- factor(data$general_employment, levels = c(&quot;employed&quot;, 
+    &quot;unemployed&quot;))
+
+ggplot(data, aes(logit, fill = general_employment)) + geom_density(alpha = 0.3) + 
+    geom_vline(xintercept = 0, lty = 2)</code></pre>
+<p><img src="/project/project2_files/figure-html/log%20regression-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>table(truth = data$general_employment, prediction = data$predicted) %&gt;%
+    addmargins</code></pre>
+<pre><code>##             prediction
+## truth        employed unemployed Sum
+##   employed         74          0  74
+##   unemployed       59          2  61
+##   Sum             133          2 135</code></pre>
+<pre class="r"><code>(74 + 2)/135  # accuracy</code></pre>
+<pre><code>## [1] 0.562963</code></pre>
+<pre class="r"><code>2/61  # tnr (specificity)</code></pre>
+<pre><code>## [1] 0.03278689</code></pre>
+<pre class="r"><code>74/74  # tpr (sensitivity aka recall)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>74/133  # ppv (precision)</code></pre>
+<pre><code>## [1] 0.556391</code></pre>
+<pre class="r"><code># install.packages(&#39;plotROC&#39;)
+library(plotROC)
+
+# geom_roc needs actual outcome (0,1) and predicted
+# probability (or predictor if just one)
+ROCplot &lt;- ggplot(data) + geom_roc(aes(d = general_employment, 
+    m = prob), n.cuts = 0)
+
+ROCplot</code></pre>
+<p><img src="/project/project2_files/figure-html/log%20regression-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>calc_auc(ROCplot)</code></pre>
+<pre><code>##   PANEL group       AUC
+## 1     1    -1 0.5310146</code></pre>
+<p>Through the logistic regression coefficients we are given a change of -0.012326 in the log odds of the employment of countries for a one unit increase in the migration_index variable. I computed the accuracy to be 0.562963 meaning the proportion of correctly classified cases. I computed the tnr (specificity) to be 0.03278689 meaning the proportion of employed countries correctly classified. I computed the tpr (sensitivity) to be 1, meaning proportion of unemployed countries correctly classified. I computed the ppv (precision) to be 0.556391, meaning proportion classified employed who actually are. The AUC is 0.5310146, meaning that 0.53 is the probability that a randomly selected country that is generally employed has a higher predicted probability than a randomly selected countru that is generally unemployed.</p>
+</div>
+
+            
+        <hr>         <div class="related-posts">
+                <h5>Related Posts</h5>
+                
+              </div> 
+            </div>
+          </div>
+
+   <hr>  <div class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+
+    (function() {
+      
+      
+      if (window.location.hostname == "localhost")
+        return;
+
+      var disqus_shortname = '';
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div> 
+        </div>
+      </div>
+    </div>
+
+    
+    <footer>
+  <div id="footer">
+    <div class="container">
+      <p class="text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io/">Hugo</a> and
+      <a href="http://www.github.com/nurlansu/hugo-sustain/">sustain</a> with ♥</p>
+    </div>
+  </div>
+</footer>
+<div class="footer"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="/js/docs.min.js"></script>
+<script src="/js/main.js"></script>
+
+<script src="/js/ie10-viewport-bug-workaround.js"></script>
+
+
+    
+  </body>
+</html>

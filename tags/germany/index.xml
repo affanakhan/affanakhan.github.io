@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>germany on Affan Khan</title>
+    <link>/tags/germany/</link>
+    <description>Recent content in germany on Affan Khan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Sun, 09 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/germany/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Affan&#39;s Python Code</title>
+      <link>/post/2021/05/09/affan-s-python-code/</link>
+      <pubDate>Sun, 09 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021/05/09/affan-s-python-code/</guid>
+      <description>#sinstall.packages(&amp;#39;reticulate&amp;#39;) library(reticulate) my_string &amp;lt;- &amp;quot;Hi, my name is Affan Khan :)))))&amp;quot; Sample Python code from class PPT.
+list1=[1,2,3,4] list2=[&amp;#39;a&amp;#39;,&amp;#39;b&amp;#39;,&amp;#39;c&amp;#39;,&amp;#39;d&amp;#39;] print(list1[0]) ## 1 Demonstrating Python and R Talking to One Another
+my_string = &amp;quot;I&amp;#39;m a UT Austin Student and I&amp;#39;m from Sugar Land, Texas&amp;quot; print(r, my_string, my_string) ## &amp;lt;__main__.R object at 0x123ec3198&amp;gt; I&amp;#39;m a UT Austin Student and I&amp;#39;m from Sugar Land, Texas I&amp;#39;m a UT Austin Student and I&amp;#39;m from Sugar Land, Texas cat(c(my_string, py$my_string)) ## Hi, my name is Affan Khan :))))) I&amp;#39;m a UT Austin Student and I&amp;#39;m from Sugar Land, Texas Germany is my favorite country in the world, here is the Neuschwanstein Castle!</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Affan Khan</title>
+    <link>/</link>
+    <description>Recent content on Affan Khan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Sun, 09 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Affan&#39;s Python Code</title>
+      <link>/post/2021/05/09/affan-s-python-code/</link>
+      <pubDate>Sun, 09 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021/05/09/affan-s-python-code/</guid>
+      <description>#sinstall.packages(&amp;#39;reticulate&amp;#39;) library(reticulate) my_string &amp;lt;- &amp;quot;Hi, my name is Affan Khan :)))))&amp;quot; Sample Python code from class PPT.
+list1=[1,2,3,4] list2=[&amp;#39;a&amp;#39;,&amp;#39;b&amp;#39;,&amp;#39;c&amp;#39;,&amp;#39;d&amp;#39;] print(list1[0]) ## 1 Demonstrating Python and R Talking to One Another
+my_string = &amp;quot;I&amp;#39;m a UT Austin Student and I&amp;#39;m from Sugar Land, Texas&amp;quot; print(r, my_string, my_string) ## &amp;lt;__main__.R object at 0x123ec3198&amp;gt; I&amp;#39;m a UT Austin Student and I&amp;#39;m from Sugar Land, Texas I&amp;#39;m a UT Austin Student and I&amp;#39;m from Sugar Land, Texas cat(c(my_string, py$my_string)) ## Hi, my name is Affan Khan :))))) I&amp;#39;m a UT Austin Student and I&amp;#39;m from Sugar Land, Texas Germany is my favorite country in the world, here is the Neuschwanstein Castle!</description>
+    </item>
+    
+    <item>
+      <title>Project2.Rmd</title>
+      <link>/project/project2/</link>
+      <pubDate>Sun, 09 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/project/project2/</guid>
+      <description>0. Introduction # read all datasets fert_data &amp;lt;- read.csv(&amp;quot;~/Desktop/SDS Project/fert.csv&amp;quot;) head(fert_data) ## name slug fert_r ## 1 Niger niger 6.91 ## 2 Angola angola 5.90 ## 3 Congo, Democratic Republic of the congo-democratic-republic-of-the 5.70 ## 4 Mali mali 5.63 ## 5 Chad chad 5.57 ## 6 Benin benin 5.47 ## date_of_information ranking region ## 1 2021 est. 1 Africa ## 2 2021 est. 2 Africa ## 3 2021 est. 3 Africa ## 4 2021 est.</description>
+    </item>
+    
+    <item>
+      <title>Project 1</title>
+      <link>/project/project1/</link>
+      <pubDate>Tue, 01 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/project/project1/</guid>
+      <description> Test Project 1  </description>
+    </item>
+    
+    <item>
+      <title>Hello R Markdown</title>
+      <link>/post/2015/07/23/hello-r-markdown/</link>
+      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      
+      <guid>/post/2015/07/23/hello-r-markdown/</guid>
+      <description>R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
+You can embed an R code chunk like this:
+summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
+    </item>
+    
+    <item>
+      <title>Projects</title>
+      <link>/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/</guid>
+      <description> Check out some of my coding projects below:
+ Wrangling &amp;amp; Exploratory Data Analysis
+ Modeling, Inference, Prediction
+  -- </description>
+    </item>
+    
+    <item>
+      <title>Resume</title>
+      <link>/resume/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/resume/</guid>
+      <description>    </description>
+    </item>
+    
+  </channel>
+</rss>
